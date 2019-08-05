@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CheckIn.cshtml";
+}
+<div class="col-md-6 offset-md-3">
+    <div class="signup-content">
+        <div class="signup-form">
+            <form method="POST" class="register-form" id="register-form">
+                <div class="form-row d-flex justify-content-center">
+                    <div class="form-group w-100">
+                        <div class="form-radio">
+                            <div class="label-flex">
+                                <label for="payment">Payment Mode</label>
+                            </div>
+                            <div class="form-radio-group" style="display: block">
+                                <div class="form-radio-item">
+                                    <input type="radio" name="payment" id="cash" value="fromtimetotime" checked>
+                                    <label class="abc" for="cash">Cash Payment Mode Cash Payment Mode Cash Payment Mode Cash Payment Mode Cash Payment Mode</label>
+                                    <span class="check"></span>
+                                </div>
+                                <div class="form-radio-item">
+                                    <input type="radio" name="payment" id="cheque" value="fromtimetotime1">
+                                    <label class="abc" for="cheque">Cheque</label>
+                                    <span class="check"></span>
+                                </div>
+                                <div class="form-radio-item">
+                                    <input type="radio" name="payment" id="demand" value="fromtimetotime2">
+                                    <label class="abc" for="demand">Demand Draf</label>
+                                    <span class="check"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-input">
+                            <input type="text" name="chequeno" id="chequeno" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-submit d-flex justify-content-center">
+                    <input type="button" value="Submit" class="submit" id="submit" name="submit" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+<script>
+        $(document).ready(function () {
+            $('.form-radio-group').on('click', ".abc", function () {
+                var label = $(this);
+                var selectedRadio = label.siblings('input[name=payment]');//.attr('checked', true);
+                $('input[name=payment]:checked').attr('checked', false);
+                selectedRadio.attr('checked', true);
+                //alert()
+                //var button = $(this);
+                //$(this).css('border', '1px solid green');
+                //        $.ajax({
+                //            url: "/api/customers/" + button.attr('data-customer-id'),
+                //            method: "DELETE",
+                //            success: function () {
+                //                customerTable.row(button.parents('tr')).remove().draw();
+                //            }
+                //        })
+
+                //});
+            });
+            $('#submit').on('click', function () {
+                alert($('input[name=payment]:checked').val());
+                var model = {
+                    WarriorID: '123',
+                    Planet: $('input[name=payment]:checked').val(),
+                    isCheckedIn: true
+                };
+                $.ajax({
+                    url: "/api/usercheckin/insert",
+                    method: "POST",
+                    data: model,
+                    success: function () {
+                        alert('ABC');
+                    }
+                });
+            });
+        });
+</script>
+}
+
